@@ -1,5 +1,9 @@
-// Código incompleto. solo se puede registrar el numero de documento
-// falta registrar el nombre
+// Código completado
+
+// Integrantes:
+// Deymar Andrés Ampudia Rivas
+// Rodigo Arturo Perez Angulo
+
 
 #include <iostream>
 #include <malloc.h> //archivo de cabecera para gestionar memoria
@@ -8,60 +12,44 @@ using namespace std;
 
 struct Pacientes
 {
-    int valCedula = 0;
-    string valNombre = NULL; //se le da un valor nulo
-    Pacientes *sigCedula, *sigNombre;
+    int Cedula = 0;
+    char Nombre[100];
+    Pacientes *sig;
 };
-Pacientes *cabCedula, *auxCedula, *aux2Cedula;
-Pacientes *cabNombre, *auxNombre, *aux2Nombre;
-
+Pacientes *cab, *aux, *aux2;
 int registrar()
 {
-    if (cabCedula == NULL)
+    if (cab == NULL)
     {
-        cabCedula = (struct Pacientes *)malloc(sizeof(struct Pacientes));
-        cout << "ingrese su numero de cedula: " << endl;
-        cin >> cabCedula->valCedula;
-        cabCedula->sigCedula = NULL;
-
-        cabNombre = (struct Pacientes *)malloc(sizeof(struct Pacientes));
-        cout << "ingrese su nombre " << endl;
-        cin >> cabNombre->valNombre; //error en esta linea de codigo
-        cabNombre->sigNombre = NULL;
+        cab = (struct Pacientes *)malloc(sizeof(struct Pacientes));
+        cout << "cedula: ";
+        cin >> cab->Cedula;
+        cout << "nombre ";
+        cin >> cab->Nombre;
+        cab->sig = NULL;
     }
     else
     {
-        auxCedula = (struct Pacientes *)malloc(sizeof(struct Pacientes));
-        cout << "ingrese su numero de cedula: " << endl;
-        cin >> auxCedula->valCedula;
-        auxCedula->sigCedula = NULL;
-        aux2Cedula = cabCedula;
-        while (aux2Cedula->sigCedula != NULL)
-        {
-            aux2Cedula = aux2Cedula->sigCedula;
-        }
-        aux2Cedula->sigCedula = auxCedula;
-        auxCedula = NULL;
-        aux2Cedula = auxCedula;
+        aux = (struct Pacientes *)malloc(sizeof(struct Pacientes));
+        cout << "ingrese su numero de cedula: ";
+        cin >> aux->Cedula;
 
-        free(auxCedula);
-        free(aux2Cedula);
-
-        auxNombre = (struct Pacientes *)malloc(sizeof(struct Pacientes));
-        cout << "ingrese su nombre: " << endl;
-        cin >> auxNombre->valNombre;
-        auxNombre->sigNombre = NULL;
-        aux2Nombre = cabNombre;
-        while (aux2Nombre->sigNombre != NULL)
-        {
-            aux2Nombre = aux2Nombre->sigNombre;
-        }
-        aux2Nombre->sigNombre = auxNombre;
-        auxNombre = NULL;
-        aux2Nombre = auxNombre;
+        cout << "ingrese su nombre: ";
+        cin >> aux->Nombre;
+        aux->sig = NULL;
         
-        free(auxNombre);
-        free(aux2Nombre);
+        aux2 = cab;
+        
+        while (aux2->sig != NULL)
+        {
+            aux2 = aux2->sig;
+        }
+        aux2->sig = aux;
+        aux = NULL;
+        aux2 = aux;
+
+        free(aux);
+        free(aux2);
     }
     return 0;
 }
@@ -69,29 +57,26 @@ int registrar()
 int mostrar()
 {
 
-    for (auxCedula = cabCedula; auxCedula != NULL; auxCedula = auxCedula->sigCedula)
+    for (aux = cab; aux != NULL; aux = aux->sig)
     {
-       
-        cout<<"personas registradas: "<<endl;
-        cout<<""<<endl;
-        cout << "Nombre: " << aux2Nombre->valNombre << endl;
-        cout << "Numero de Cedula: " << auxCedula->valCedula << endl;
-        cout<<""<<endl;
-        
+        cout << "Nombre: " << aux->Nombre << endl;;
+        cout << "Numero de Cedula: " << aux->Cedula << endl;
+        cout << "" << endl;
     }
     return 0;
 }
 
 int main()
 {
-    int opcion = 0; // menu de accion
+    int opcion = 0; 
 
-    do
+    do // menu de accion
     {
-        cout << "menu de regirtro de pacientes" << endl;
-        cout << "1. regisrar paciente" << endl;
-        cout << "2. ver lista de pacientes" << endl;
+        cout << "Registro de Pacientes" << endl;
+        cout << "1. Regisrar Paciente" << endl;
+        cout << "2. Ver Lista de Pacientes" << endl;
         cout << "3. salir" << endl;
+        cout << "Ingrese su opcion: ";
         cin >> opcion;
 
         switch (opcion)
@@ -101,11 +86,13 @@ int main()
             break;
 
         case 2:
+            cout << "personas registradas: " << endl;
+            cout << "" << endl;
             mostrar();
             break;
 
         case 3:
-            cout << "adios" << endl;
+            cout << "Programa finalizado. Que tenga buen día" << endl;
             break;
 
         default:
