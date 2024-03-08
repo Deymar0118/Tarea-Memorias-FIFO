@@ -4,7 +4,6 @@
 // Deymar Andrés Ampudia Rivas
 // Rodigo Arturo Perez Angulo
 
-
 #include <iostream>
 #include <malloc.h> //archivo de cabecera para gestionar memoria
 
@@ -12,38 +11,60 @@ using namespace std;
 
 struct Pacientes
 {
+    int acumulador;
     int Cedula = 0;
-    char Nombre[100];
+    char Nombre [20]; // se pone un limitador de letras que la variable Nombre puede guardar
+    char Apellido [20]; // se pone un limitador de letras que la variable Apellido puede guardar
     Pacientes *sig;
 };
 Pacientes *cab, *aux, *aux2;
-int registrar()
+void registrar()
 {
     if (cab == NULL)
     {
         cab = (struct Pacientes *)malloc(sizeof(struct Pacientes));
-        cout << "cedula: ";
+        cout << "Ingrese su cédula: ";
         cin >> cab->Cedula;
-        cout << "nombre ";
-        cin >> cab->Nombre;
+
+        cout << "ingrese su primer nombre: ";
+        cin>> cab-> Nombre;
+
+        cout<<"ingrese su primer apellido: ";
+        cin>> cab -> Apellido;
+
         cab->sig = NULL;
+
+        if(cab==NULL){
+            cab=aux;
+            cab->acumulador=1;
+            aux=NULL;
+
+            free(aux);
+        }
+
     }
     else
     {
         aux = (struct Pacientes *)malloc(sizeof(struct Pacientes));
-        cout << "ingrese su numero de cedula: ";
+        cout << "ingrese su cedula: ";
         cin >> aux->Cedula;
 
-        cout << "ingrese su nombre: ";
+        cout << "ingrese su primer nombre: ";
         cin >> aux->Nombre;
+
+        cout<<"ingrese su primer apellido: ";
+        cin>> aux->Apellido;
+
         aux->sig = NULL;
-        
         aux2 = cab;
         
         while (aux2->sig != NULL)
         {
             aux2 = aux2->sig;
         }
+
+
+        aux->acumulador = aux2->acumulador+1;
         aux2->sig = aux;
         aux = NULL;
         aux2 = aux;
@@ -51,19 +72,20 @@ int registrar()
         free(aux);
         free(aux2);
     }
-    return 0;
 }
 
-int mostrar()
+void mostrar()
 {
+
+    //El orden de llegada inicia desde 0, y no desde 1.
 
     for (aux = cab; aux != NULL; aux = aux->sig)
     {
-        cout << "Nombre: " << aux->Nombre << endl;;
+        cout<<"Orden de atencion: "<<aux->acumulador<<endl;
+        cout << "Nombre: " << aux->Nombre <<" "<<aux->Apellido<< endl;;
         cout << "Numero de Cedula: " << aux->Cedula << endl;
         cout << "" << endl;
     }
-    return 0;
 }
 
 int main()
@@ -72,8 +94,11 @@ int main()
 
     do // menu de accion
     {
-        cout << "Registro de Pacientes" << endl;
-        cout << "1. Regisrar Paciente" << endl;
+        cout << "Programa de Registro de Pacientes" << endl;
+        cout<<"Por favor, elija una opcion"<<endl;
+        cout<<""<<endl;
+
+        cout << "1. Registrar Paciente" << endl;
         cout << "2. Ver Lista de Pacientes" << endl;
         cout << "3. salir" << endl;
         cout << "Ingrese su opcion: ";
@@ -92,7 +117,7 @@ int main()
             break;
 
         case 3:
-            cout << "Programa finalizado. Que tenga buen día" << endl;
+            cout << "Programa finalizado. Que tenga buen dia" << endl;
             break;
 
         default:
@@ -101,5 +126,4 @@ int main()
         }
     } while (opcion != 3);
 
-    return 0;
 }
