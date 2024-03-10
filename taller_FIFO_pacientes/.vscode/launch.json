@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/USUARIO/Documents/UNI/estructura/trabajos de C++/taller FIFO (DIA) pacientes",
-      "program": "c:/Users/USUARIO/Documents/UNI/estructura/trabajos de C++/taller FIFO (DIA) pacientes/build/Debug/outDebug",
+      "cwd": "c:/Users/USUARIO/Downloads/Tarea-Memorias-FIFO/taller_FIFO_pacientes",
+      "program": "c:/Users/USUARIO/Downloads/Tarea-Memorias-FIFO/taller_FIFO_pacientes/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
